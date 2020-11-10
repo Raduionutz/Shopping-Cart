@@ -1,58 +1,77 @@
 
-<a routerLink="/"><button class="btn btn-success" > Back to product list</button></a>
+<a routerLink="/"><button class="btn btn-success" > <h1>Back to product list</h1></button></a>
 
-<div class="container" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-<div class="row">
-    <div class="col-sm-6">
-        <div class="container" *ngFor="let item of cartProductsService.productsInCart | keyvalue">
-            <div class="container">
+<div *ngIf="cartProductsService.total; else elseBlock">
+    <div class="container" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="container" *ngFor="let item of cartProductsService.productsInCart | keyvalue">
+                    <div class="container">
+        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>{{ item.value.name }}</h3>
+                                <p>Pret: {{ item.value.price | number : '1.2-2' }} RON</p>
+                                <p>Quantity: {{ item.value.count }}</p>
+        
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h3>{{ item.value.name }}</h3>
-                        <p>Pret: {{ item.value.price | number : '1.2-2' }} RON</p>
-                        <p>Quantity: {{ item.value.count }}</p>
-
-                        <button (click)=cartProductsService.removeOneFromCart(item.key)>
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button (click)=cartProductsService.addOneToCart(item.key)>
-                            <i class="fa fa-plus"></i>
-                        </button>
-                        <br>
-
-                        <strong>Subtotal: {{ item.value.price * item.value.count | number : '1.2-2' }} </strong>
-                        <hr>
+                                <button (click)=cartProductsService.removeFromCart(item.key)>
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button (click)=cartProductsService.removeOneFromCart(item.key)>
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button (click)=cartProductsService.addOneToCart(item.key)>
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <br>
+        
+                                <strong>Subtotal: {{ item.value.price * item.value.count | number : '1.2-2' }} </strong>
+                                <hr>
+                            </div>
+        
+                        </div>
                     </div>
-
                 </div>
             </div>
+        
+            <div class="col-sm-6">
+                <h3>Total(before taxes): {{ cartProductsService.total | number : '1.2-2' }} </h3>
+                <h3>Taxes: {{ cartProductsService.total * 0.19 | number : '1.2-2'}} </h3>
+                <hr>
+                <h2>Total: {{ cartProductsService.total * 1.19 | number : '1.2-2' }}</h2>
+        
+          
+                <label for="creditCard">Credit Card Number:</label>
+                <input class="form-control" id="creditCard" name="creditCard"
+                 maxlength="16" placeholder="xxxxxxxxxxxxxxxx" [(ngModel)]="creditCard">
+        
+                <label for="cvv">CVV:</label>
+                <input class="form-control"  id="cvv" name="cvv"
+                maxlength="3" placeholder="xxx" [(ngModel)]="cvv">
+        
+                <label for="cardExpDate">Expiration Date:</label>
+                <input class="form-control"  id="cardExpDate" name="cardExpDate"
+                maxlength="4" placeholder="xx/xx" [(ngModel)]="cardExpDate">
+                <br>
+        
+                <button type="button" class="btn btn-block btn-primary btn-circle btn-icon-left"  (click)="tryCheckout()">
+                    <h3>Checkout</h3>
+                </button>
+            </div>
         </div>
-    </div>
-
-    <div class="col-sm-6">
-        <h3>Total(before taxes): {{ cartProductsService.total | number : '1.2-2' }} </h3>
-        <h3>Taxes: {{ cartProductsService.total * 0.19 | number : '1.2-2'}} </h3>
-        <hr>
-        <h2>Total: {{ cartProductsService.total * 1.19 | number : '1.2-2' }}</h2>
-
-  
-        <label for="creditCard">Credit Card Number:</label>
-        <input class="form-control" id="creditCard" name="creditCard" inputmode="numeric"
-         maxlength="16" placeholder="xxxxxxxxxxxxxxxx" [(ngModel)]="creditCard">
-
-        <label for="cvv">CVV:</label>
-        <input class="form-control"  id="cvv" name="cvv" inputmode="numeric" 
-        maxlength="3" placeholder="xxx" [(ngModel)]="cvv">
-
-        <label for="cardExpDate">Expiration Date:</label>
-        <input class="form-control"  id="cardExpDate" name="cardExpDate" inputmode="numeric" 
-        maxlength="4" placeholder="xx/xx" [(ngModel)]="cardExpDate">
-        <br>
-
-        <button type="button" class="btn btn-block btn-primary btn-circle btn-icon-left"  (click)="tryCheckout()">
-            <h3>Checkout</h3>
-        </button>
-    </div>
+        </div>
 </div>
-</div>
+<ng-template #elseBlock>
+    
+    <div class="container" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="row">
+            <div class="container">
+                <h1> The cart appears to be empty!</h1>
+            </div>
+        </div>
+        <a routerLink="/"><button class="btn btn-primary" > <h3>Add some items</h3></button></a>
+        </div>
+</ng-template>
+
+

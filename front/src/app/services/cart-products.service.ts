@@ -34,7 +34,7 @@ export class CartProductsService {
     console.log(this.productsInCart)
   }
 
-  removefromCart (product_id) {
+  removeFromCart (product_id) {
     this.total -= this.productsInCart[product_id].price * this.productsInCart[product_id].count
 
     delete this.productsInCart[product_id]
