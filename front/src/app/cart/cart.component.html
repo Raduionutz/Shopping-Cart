@@ -42,23 +42,24 @@
                 <hr>
                 <h2>Total: {{ cartProductsService.total * 1.19 | number : '1.2-2' }}</h2>
         
-          
-                <label for="creditCard">Credit Card Number:</label>
-                <input class="form-control" id="creditCard" name="creditCard"
-                 maxlength="16" placeholder="xxxxxxxxxxxxxxxx" [(ngModel)]="creditCard">
-        
-                <label for="cvv">CVV:</label>
-                <input class="form-control"  id="cvv" name="cvv"
-                maxlength="3" placeholder="xxx" [(ngModel)]="cvv">
-        
-                <label for="cardExpDate">Expiration Date:</label>
-                <input class="form-control"  id="cardExpDate" name="cardExpDate"
-                maxlength="4" placeholder="xx/xx" [(ngModel)]="cardExpDate">
-                <br>
-        
-                <button type="button" class="btn btn-block btn-primary btn-circle btn-icon-left"  (click)="tryCheckout()">
-                    <h3>Checkout</h3>
-                </button>
+                <form id="cardForm">
+                    <label for="creditCard">Credit Card Number:</label>
+                    <input class="form-control" id="creditCard" name="creditCard" required minlength="16"
+                    maxlength="16" placeholder="xxxxxxxxxxxxxxxx" [(ngModel)]="creditCard">
+            
+                    <label for="cvv">CVV:</label>
+                    <input class="form-control"  id="cvv" name="cvv" required minlength="3"
+                    maxlength="3" placeholder="xxx" [(ngModel)]="cvv">
+            
+                    <label for="cardExpDate">Expiration Date:</label>
+                    <input class="form-control"  id="cardExpDate" name="cardExpDate"required minlength="4"
+                    maxlength="4" placeholder="xx/xx" [(ngModel)]="cardExpDate">
+                    <br>
+            
+                    <button type="submit" form="cardForm" class="btn btn-block btn-primary btn-circle btn-icon-left"  (click)="tryCheckout()">
+                        <h3>Checkout</h3>
+                    </button>
+                </form>
             </div>
         </div>
         </div>
@@ -74,5 +75,3 @@
         <a routerLink="/"><button class="btn btn-primary" > <h3>Add some items</h3></button></a>
         </div>
 </ng-template>
-
-
