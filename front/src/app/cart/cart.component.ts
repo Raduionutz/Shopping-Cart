@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductsService} from '../services/products-service.service'
+import { ProductsService } from '../services/products-service.service'
 import { CartProductsService } from '../services/cart-products.service';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,45 +14,60 @@ export class CartComponent implements OnInit {
   cvv = '';
   cardExpDate = '';
 
-  constructor(private productsService: ProductsService, public cartProductsService: CartProductsService) { 
+  constructor(
+    private productsService: ProductsService, 
+    public cartProductsService: CartProductsService,
+    public ordersService: OrdersService,
+    ) { 
   }
 
   ngOnInit(): void {
   }
 
   validateCreditCard(): boolean {
-
     let good = new RegExp('[0-9]*').test(this.creditCard) && this.creditCard.length == 16;
-
-    console.log(`Credit card is ${good}`)
 
     return good
   }
 
   validateCVV(): Boolean {
-3
     let good = new RegExp('[0-9]*').test(this.cvv) && this.cvv.length == 3;
-
-    console.log(`CVV is ${good}`)
 
     return good
 
   }
 
   validateCreditCardExpDate(): Boolean {
-
     let good = new RegExp('[0-9]*').test(this.cardExpDate) && this.cardExpDate.length == 4;
-
-    console.log(`Exp date is ${good}`)
 
     return good
 
   }
   tryCheckout(): void {
-    let good = this.validateCreditCard() && this.validateCVV() && this.validateCreditCardExpDate()
+    let good = this.validateCreditCard() && this.validateCVV() 
+    && this.validateCreditCardExpDate() && this.cartProductsService.total !== 0
 
-    
-    console.log(this.cartProductsService.total)
+    if (good) {
+
+      let products = this.cartProductsService.productsInCart
+
+      for(let key of Object.keys(products)) {
+        delete products[key].price
+        delete products[key].name
+      }
+
+      let orderInfo = {
+        'price': this.cartProductsService.total,
+        'products': products
+      }
+
+      this.cartProductsService.emptyCart()
+
+      console.log('trimit' + orderInfo)
+
+      this.ordersService.createOrder(orderInfo).toPromise().then((data) => {
+        console.log('raspund' + data)
+      })
+    }
   }
-
 }

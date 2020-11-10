@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller\ProductsController;
+use App\Http\Controller\OrdersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,5 @@ use App\Http\Controller\ProductsController;
 // });
 
 Route::get('products', 'App\Http\Controllers\ProductsController@show');
+Route::get('orders', 'App\Http\Controllers\OrdersController@show');
+Route::post('orders', 'App\Http\Controllers\OrdersController@store');
