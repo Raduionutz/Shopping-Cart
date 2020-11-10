@@ -2,3 +2,8 @@ div {
     margin-top: 20px;
     padding: 10px;
 }
+#cartButton {
+    position: fixed;
+    margin-left: 84%;
+    margin-top: 84vh;
+}

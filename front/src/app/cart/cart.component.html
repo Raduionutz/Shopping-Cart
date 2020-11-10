@@ -1,6 +1,7 @@
 
-<a routerLink="/"><button class="btn btn-success" > <h1>Back to product list</h1></button></a>
-
+<div id="productsButton">
+    <a routerLink="/"><button class="btn btn-success" > <h1>Back to product list</h1></button></a>
+</div>
 <div *ngIf="cartProductsService.total; else elseBlock">
     <div class="container" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
         <div class="row">
