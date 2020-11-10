@@ -20,13 +20,10 @@ export class ProductsComponent implements OnInit {
     this.productsService.getProducts().toPromise().then(
       (data) => {
         this.products = data['products']
-        console.log(this.products)
       })
   }
 
-
   addToCart(product): void {
-
     this.cartProductsService.addToCart(product);
   }
 }

@@ -43,6 +43,11 @@ export class CartComponent implements OnInit {
     return good
 
   }
+
+  async tryPayment () {
+    return Math.floor(Math.random() * 10) > 5
+  }
+
   tryCheckout(): void {
     let good = this.validateCreditCard() && this.validateCVV() 
     && this.validateCreditCardExpDate() && this.cartProductsService.total !== 0
@@ -63,10 +68,18 @@ export class CartComponent implements OnInit {
 
       this.cartProductsService.emptyCart()
 
-      console.log('trimit' + orderInfo)
-
       this.ordersService.createOrder(orderInfo).toPromise().then((data) => {
-        console.log('raspund' + data)
+        this.tryPayment().then((success) => {
+          if (success) {
+            this.ordersService.markOrderPaid(data['orderId']).toPromise().then((data) => {
+              console.log('Done.')
+            })
+          } else {
+            this.ordersService.markOrderPaymentFailed(data['orderId']).toPromise().then((data) => {
+              console.log('Done.')
+            })
+          }
+        })
       })
     }
   }

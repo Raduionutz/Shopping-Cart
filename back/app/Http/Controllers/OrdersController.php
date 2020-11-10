@@ -32,4 +32,16 @@ class OrdersController extends Controller
 
         return response(json_encode($response), 200);
     }
+
+
+    public function update(Request $request)
+    {
+        $order = Order::find($request->route('id'));
+        
+        $order->status = $request->input('status');
+
+        $order->save();
+
+        return response(json_encode('Succes!'), 200);
+    }
 }

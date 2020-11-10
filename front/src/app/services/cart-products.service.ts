@@ -21,7 +21,6 @@ export class CartProductsService {
     }
 
     this.total += product.price
-    console.log(this.productsInCart)
   }
 
 
@@ -30,19 +29,13 @@ export class CartProductsService {
     this.total += this.productsInCart[product_id].price
 
     this.productsInCart[product_id].count += 1
-
-    console.log(this.productsInCart)
   }
 
   removeFromCart (product_id) {
     this.total -= this.productsInCart[product_id].price * this.productsInCart[product_id].count
 
     delete this.productsInCart[product_id]
-
-    console.log(this.productsInCart)
   }
-
-
 
   removeOneFromCart (product_id) {
     this.total -= this.productsInCart[product_id].price
@@ -51,8 +44,6 @@ export class CartProductsService {
     if (this.productsInCart[product_id].count === 0) {
       delete this.productsInCart[product_id]
     }
-
-    console.log(this.productsInCart)
   }
 
   emptyCart() {

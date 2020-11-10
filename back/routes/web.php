@@ -21,3 +21,4 @@ use App\Http\Controller\OrdersController;
 Route::get('products', 'App\Http\Controllers\ProductsController@show');
 Route::get('orders', 'App\Http\Controllers\OrdersController@show');
 Route::post('orders', 'App\Http\Controllers\OrdersController@store');
+Route::put('orders/{id}', 'App\Http\Controllers\OrdersController@update');

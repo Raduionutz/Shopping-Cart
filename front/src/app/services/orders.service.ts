@@ -17,4 +17,16 @@ export class OrdersService {
   createOrder(orderInfo: Object): Observable<Object> {
     return this.http.post(`http://127.0.0.1:8080/orders`, orderInfo);
   }
+
+  markOrderPaid(orderId) {
+    return this.http.put(`http://127.0.0.1:8080/orders/${orderId}`, {
+      'status': 'Payment Successful.',
+    });
+  }
+
+  markOrderPaymentFailed(orderId) {
+    return this.http.put(`http://127.0.0.1:8080/orders/${orderId}`, {
+      'status': 'Payment failed.',
+    });
+  }
 }
