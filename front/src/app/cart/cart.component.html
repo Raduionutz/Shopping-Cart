@@ -1,6 +1,6 @@
 
 <div id="productsButton">
-    <a routerLink="/"><button class="btn btn-success" > <h1>Back to product list</h1></button></a>
+    <a routerLink="/"><button class="btn btn-success" > <h3>Back to product list</h3></button></a>
 </div>
 <div *ngIf="cartProductsService.total; else elseBlock">
     <div class="container" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
@@ -60,6 +60,7 @@
                         <h3>Checkout</h3>
                     </button>
                 </form>
+                <br><br>
             </div>
         </div>
         </div>
@@ -73,5 +74,6 @@
             </div>
         </div>
         <a routerLink="/"><button class="btn btn-primary" > <h3>Add some items</h3></button></a>
+        <br><br>
         </div>
 </ng-template>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products-service.service'
 import { CartProductsService } from '../services/cart-products.service';
 import { OrdersService } from '../services/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ export class CartComponent implements OnInit {
     private productsService: ProductsService, 
     public cartProductsService: CartProductsService,
     public ordersService: OrdersService,
+    private router: Router,
     ) { 
   }
 
@@ -81,6 +83,8 @@ export class CartComponent implements OnInit {
           }
         })
       })
+
+      this.router.navigate(['/']);
     }
   }
 }
